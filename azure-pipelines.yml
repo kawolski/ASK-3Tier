@@ -15,7 +15,7 @@ steps:
   inputs:
     targetType: 'inline'
     script: |
-      $values = git log -n 2 --format=%h
+      $values = git log -n 2
       Write-Host $values
 
 # - task: PowerShell@2
