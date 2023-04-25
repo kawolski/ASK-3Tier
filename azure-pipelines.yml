@@ -15,6 +15,7 @@ steps:
   inputs:
     targetType: 'inline'
     script: |
+      git log --oneline
       $values = git log -n 2
       Write-Host $values
 
