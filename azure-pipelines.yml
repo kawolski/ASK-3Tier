@@ -16,7 +16,8 @@ steps:
     targetType: 'inline'
     script: |
       $values = git log -n 2 --format=%h
-      Write-Host $values
+      Write-Host $values[0]
+      Write-Host $values[1]
 
 # - task: PowerShell@2
 #   displayName: "Get and Compare Changesets"
