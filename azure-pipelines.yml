@@ -18,10 +18,21 @@ steps:
   inputs:
     targetType: 'inline'
     script: |
-      $val = git log -n 2 --format=%h
-      $changeSets = git log -n 2 --format=%h
       $changedFiles = git diff --name-only -r $(Build.SourceVersion)
+      Write-Host $changedFiles
+      Write-Output $changedFiles > $(Build.ArtifactStagingDirectory)/changedFiles.txt
       
+
+# - task: PowerShell@2
+#   displayName: "Get and Compare Changesets"
+#   inputs:
+#     targetType: 'inline'
+#     script: |
+#       $val = git log -n 2 --format=%h
+#       $changeSets = git log -n 2 --format=%h
+#       $changedFiles = (git diff --name-only $changeSets[0] $changeSets[1])
+
+
 
 - task: PublishBuildArtifacts@1
   inputs:
