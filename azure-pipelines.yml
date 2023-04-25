@@ -15,8 +15,7 @@ steps:
   inputs:
     targetType: 'inline'
     script: |
-      git checkout main
-      git pull
+      git diff --name-only 9a4c5f2 6232583
       git log --oneline
       $values = git log -n 2
       Write-Host $values
