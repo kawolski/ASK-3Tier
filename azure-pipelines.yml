@@ -20,6 +20,7 @@ steps:
     script: |
       $val = git log -n 2 --format=%h
       $changeSets = git log -n 2 --format=%h
+      $changedFiles = git diff --name-only -r $(Build.SourceVersion)
       
 
 - task: PublishBuildArtifacts@1
