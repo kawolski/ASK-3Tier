@@ -20,8 +20,6 @@ steps:
     script: |
       $changeSets = git log -n 2 --format=%h
       $changedFiles = git diff --name-only $changeSets[0] $changeSets[1]
-      Write-Host $changedFiles
-      Write-Output $changedFiles > $(Build.ArtifactStagingDirectory)/changedFiles.txt
 
 - task: PublishBuildArtifacts@1
   inputs:
