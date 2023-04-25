@@ -1,0 +1,30 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- main
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+- script: echo Hello, world!
+  displayName: 'Run a one-line script'
+
+- task: PowerShell@2
+  displayName: "Get and Compare Changesets"
+  inputs:
+    targetType: 'inline'
+    script: |
+      $changeSets = git log -n 2 --format=%h
+      $changedFiles = git diff --name-only $changeSets[0] $changeSets[1]
+      Write-Host $changedFiles
+      Write-Output $changedFiles > $(Build.ArtifactStagingDirectory)/changedFiles.txt
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'drop'
+    publishLocation: 'Container'
