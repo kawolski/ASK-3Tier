@@ -10,17 +10,22 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
-
 - task: PowerShell@2
-  displayName: "Get and Compare Changesets"
+  displayName: "Get Changesets"
   inputs:
     targetType: 'inline'
     script: |
-      $changedFiles = git diff --name-only -r $(Build.SourceVersion)
-      Write-Host $changedFiles
-      Write-Output $changedFiles > $(Build.ArtifactStagingDirectory)/changedFiles.txt
+      $values = git log -n 2 --format=%h
+      Write-Host $values
+
+# - task: PowerShell@2
+#   displayName: "Get and Compare Changesets"
+#   inputs:
+#     targetType: 'inline'
+#     script: |
+#       $changedFiles = git diff --name-only -r $(Build.SourceVersion)
+#       Write-Host $changedFiles
+#       Write-Output $changedFiles > $(Build.ArtifactStagingDirectory)/changedFiles.txt
       
 
 # - task: PowerShell@2
@@ -34,8 +39,8 @@ steps:
 
 
 
-- task: PublishBuildArtifacts@1
-  inputs:
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-    ArtifactName: 'drop'
-    publishLocation: 'Container'
+# - task: PublishBuildArtifacts@1
+#   inputs:
+#     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+#     ArtifactName: 'drop'
+#     publishLocation: 'Container'
