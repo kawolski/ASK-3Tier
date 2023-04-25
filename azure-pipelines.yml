@@ -4,7 +4,7 @@
 # https://aka.ms/yaml
 
 trigger:
-- none
+- main
 
 pool:
   vmImage: windows-latest
@@ -15,6 +15,7 @@ steps:
   inputs:
     targetType: 'inline'
     script: |
+      git checkout main
       git pull
       git log --oneline
       $values = git log -n 2
